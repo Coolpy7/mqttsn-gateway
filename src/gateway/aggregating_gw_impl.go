@@ -80,7 +80,7 @@ func (g *AggregatingGateway) StartUp() error {
 	// launch server loop
 	go serverLoop(g, g.Config.Host, g.Config.Port, g.Config.ReadBuffSize, g.Config.WriteBuffSize)
 	go g.recvLoop()
-	go g.statisticsReporter.loggingLoop()
+	//go g.statisticsReporter.loggingLoop()
 	g.waitSignal()
 	return nil
 }

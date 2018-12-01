@@ -1,7 +1,7 @@
 IsAggregate: true
 Host: 0.0.0.0
 Port: 1884
-BrokerHost: "192.168.200.238"
+BrokerHost: "i.icoolpy.com"
 BrokerPort: 1883
 BrokerUser:
 BrokerPassword:
