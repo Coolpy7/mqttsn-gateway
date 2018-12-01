@@ -41,13 +41,13 @@ func (g *AggregatingGateway) ConnectToBroker(cleanSession bool) error {
 	opts.SetClientID("mqttsn")
 	opts.SetUsername(g.Config.BrokerUser)
 	opts.SetPassword(g.Config.BrokerPassword)
-	opts.SetAutoReconnect(false)
+	opts.SetAutoReconnect(true)
+	opts.SetMaxReconnectInterval(30 * time.Second)
 	opts.SetConnectionLostHandler(g.connLostHandler)
 	opts.SetCleanSession(cleanSession)
 
 	// create client instance
-	// TODO: add lock
-	g.mqttClient = (MQTT.NewClient(opts))
+	g.mqttClient = MQTT.NewClient(opts)
 
 	// connect
 	if token := g.mqttClient.Connect(); !token.WaitTimeout(15 * time.Second) {
@@ -510,7 +510,7 @@ func (g *AggregatingGateway) handleSubscribe(conn *net.UDPConn, remote *net.UDPA
 			}
 		}
 
-	// else if PREDEFINED, get TopicName and Subscribe to Broker
+		// else if PREDEFINED, get TopicName and Subscribe to Broker
 	case message.MQTTSN_TIDT_PREDEFINED:
 		log.Println("Subscribe from : ", remote.String(), ", TopicID Type : PREDEFINED, TopicID : ", m.TopicId)
 
@@ -541,7 +541,7 @@ func (g *AggregatingGateway) handleSubscribe(conn *net.UDPConn, remote *net.UDPA
 			}
 		}
 
-	// else if SHORT_NAME, subscribe to broker
+		// else if SHORT_NAME, subscribe to broker
 	case message.MQTTSN_TIDT_SHORT_NAME:
 		log.Println("WARN : Subscribe SHORT Topic is not implemented")
 		// TODO: implement
