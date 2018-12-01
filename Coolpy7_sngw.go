@@ -95,7 +95,7 @@ func main() {
 		umsg := make(map[string]interface{})
 		umsg["v"] = Version
 		umsg["tcp"] = config.BrokerPort
-		//umsg["tls"] = strconv.Itoa(*tlsPort)
+		umsg["tls"] = config.BrokerPort
 		umsg["ag"] = config.Port
 		pmsg, err := json.Marshal(umsg)
 		if err != nil {
