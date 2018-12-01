@@ -5,7 +5,6 @@ BrokerHost: "192.168.200.238"
 BrokerPort: 1883
 BrokerUser:
 BrokerPassword:
-LogFilePath: true
 LogFilePath: mqttsn.log
 MessageQueueSize: 1000
 ReadBuffSize: 212992
